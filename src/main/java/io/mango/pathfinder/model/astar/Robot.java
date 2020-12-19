@@ -1,18 +1,16 @@
 package io.mango.pathfinder.model.astar;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Robot {
-    private int id;
-    //14
-    private int diagonalCost;
-    //10
-    private int vHCost;
+    private int verticalMoveCoefficient;
+    private int horizontalMoveCoefficient;
 }

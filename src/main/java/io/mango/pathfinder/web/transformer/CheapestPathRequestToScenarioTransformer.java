@@ -1,6 +1,6 @@
 package io.mango.pathfinder.web.transformer;
 
-import io.mango.pathfinder.model.astar.Scenario;
+import io.mango.pathfinder.model.scenario.Scenario;
 import io.mango.pathfinder.web.request.CheapestPathRequest;
 import org.springframework.stereotype.Service;
 

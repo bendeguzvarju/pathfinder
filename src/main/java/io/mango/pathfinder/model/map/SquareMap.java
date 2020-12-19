@@ -1,4 +1,6 @@
-package io.mango.pathfinder.asd;
+package io.mango.pathfinder.model.map;
+
+import io.mango.pathfinder.model.astar.Robot;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,18 +37,22 @@ public class SquareMap extends Map {
         if(node != null) {
             for(int i = -1; i <= 1; i++) {
                 for(int j = -1; j <= 1; j++) {
-                    if (node.getX() + i >= 0 && node.getY() + j >= 0) {
-                        if(!(i == 0 && j ==0)) {
-                            neighbour = this.getNode(node.getX() + i, node.getY() + j);
-                            if(neighbour != null) {
-                                neighbours.add(neighbour);
-                            }
+                    int columnIndex = node.getX() + i;
+                    int rowIndex = node.getY() + j;
+                    if (isOnGrid(columnIndex, rowIndex)) {
+                        neighbour = this.getNode(columnIndex, rowIndex);
+                        if(neighbour != null && !neighbour.equals(node)) {
+                            neighbours.add(neighbour);
                         }
                     }
                 }
             }
         }
         return neighbours;
+    }
+
+    private boolean isOnGrid(int columnIndex, int rowIndex) {
+        return columnIndex >= 0 && rowIndex >= 0;
     }
 
     @Override

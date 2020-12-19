@@ -1,4 +1,4 @@
-package io.mango.pathfinder.asd;
+package io.mango.pathfinder.model.map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

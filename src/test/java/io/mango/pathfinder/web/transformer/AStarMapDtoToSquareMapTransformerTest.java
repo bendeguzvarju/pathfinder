@@ -1,22 +1,20 @@
 package io.mango.pathfinder.web.transformer;
 
-import static org.mockito.Mockito.when;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
-@WebMvcTest(AStarMapDtoToMapTransformer.class)
-public class AStarMapDtoToMapTransformerTest {
+@WebMvcTest(AStarMapDtoToSquareMapTransformer.class)
+public class AStarMapDtoToSquareMapTransformerTest {
     public static final int height = 4;
     public static final int width = 6;
 
-    private AStarMapDtoToMapTransformer underTest;
+    private AStarMapDtoToSquareMapTransformer underTest;
 
     @Before
     public void setUp() {
-        underTest = new AStarMapDtoToMapTransformer();
+        underTest = new AStarMapDtoToSquareMapTransformer();
     }
 
     @Test

@@ -1,6 +1,6 @@
 package io.mango.pathfinder.web.controller.astar;
 
-import io.mango.pathfinder.model.astar.Node;
+import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.service.AStarService;
 import io.mango.pathfinder.web.request.CheapestPathRequest;
 import io.mango.pathfinder.web.transformer.CheapestPathRequestToScenarioTransformer;

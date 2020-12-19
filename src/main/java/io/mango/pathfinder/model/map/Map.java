@@ -1,6 +1,6 @@
-package io.mango.pathfinder.asd;
+package io.mango.pathfinder.model.map;
 
-import lombok.Builder;
+import io.mango.pathfinder.model.astar.Robot;
 import lombok.Getter;
 import lombok.Setter;
 

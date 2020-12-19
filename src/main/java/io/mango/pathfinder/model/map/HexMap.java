@@ -1,7 +1,18 @@
-package io.mango.pathfinder.asd;
+package io.mango.pathfinder.model.map;
 
+import io.mango.pathfinder.model.astar.Robot;
+
+import java.util.HashSet;
 import java.util.Set;
 
+/*
+ h [0][0][0][0]
+ e  [0][0][0][0]
+ i [0][0][0][0]
+ g  [0][0][0][0]
+ h [0][0][0][0]
+ t     width
+ */
 public class HexMap extends Map {
     private static final int MOVE_COST = 10;
 
@@ -27,7 +38,9 @@ public class HexMap extends Map {
 
     @Override
     public Set<Node> findNeighbours(Node node) {
-        return null;
+        Set<Node> neighbours = new HashSet<>();
+
+        return neighbours;
     }
 
     @Override

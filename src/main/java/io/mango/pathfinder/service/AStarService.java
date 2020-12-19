@@ -1,8 +1,10 @@
 package io.mango.pathfinder.service;
 
-import io.mango.pathfinder.model.astar.Node;
+
+import io.mango.pathfinder.model.map.Map;
+import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.astar.Robot;
-import io.mango.pathfinder.model.astar.Scenario;
+import io.mango.pathfinder.model.scenario.Scenario;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,93 +15,57 @@ public class AStarService {
 
     public Set<Node> findCheapestPath(Scenario scenario) {
         Set<Node> solution = new HashSet<>();
-        Robot robot = scenario.getRobot();
-        if(scenario.getStartNode().isClosed()) {
-            scenario.getStartNode().open();
-        }
-        Node current;
+        scenario.setNode(scenario.getStartNode());
+        scenario.setNode(scenario.getEndNode());
+        scenario.getOpenNodes().add(scenario.getStartNode());
+
+        Node currentNode;
 
         while(true) {
-            current = scenario.getOpenNodes().poll();
-            if(current == null) {
+            currentNode = scenario.getOpenNodes().poll();
+            if(currentNode == null) {
                 break;
             }
 
-            current.close();
+            scenario.getClosedNodes().add(currentNode);
 
-            if(current.equals(scenario.getEndNode())) {
-                return solution;
-            }
+            if(currentNode.equals(scenario.getEndNode())) {
 
-            Node target;
-
-            if (current.getX() - 1 >= 0) {
-                target = scenario.getNode(current.getX() - 1, current.getY());
-                updateCostIfNeeded(current, target, current.getFinalCost() + robot.getVHCost());
-
-                if (current.getY() - 1 >= 0) {
-                    target = scenario.getNode(current.getX() - 1, current.getY() - 1);
-                    updateCostIfNeeded(current, target, current.getFinalCost() + robot.getDiagonalCost());
+                while(currentNode != null) {
+                    solution.add(currentNode);
+                    currentNode = currentNode.getParent();
                 }
-
-                if(current.getY() + 1 < scenario.getMapHeight()) {
-                    target = scenario.getNode(current.getX() - 1, current.getY() + 1);
-                    updateCostIfNeeded(current, target, current.getFinalCost() + robot.getDiagonalCost());
-                }
+                return solution ;
             }
 
-            if(current.getY() - 1 >= 0) {
-                target = scenario.getNode(current.getX(), current.getY() - 1);
-                updateCostIfNeeded(current, target, current.getFinalCost() + robot.getVHCost());
-            }
-
-            if(current.getY() + 1 < scenario.getMapHeight()) {
-                target = scenario.getNode(current.getX(), current.getY() + 1);
-                updateCostIfNeeded(current, target, current.getFinalCost() + robot.getVHCost());
-            }
-
-            if (current.getX() + 1 < scenario.getMapWidth()) {
-                target = scenario.getNode(current.getX() + 1, current.getY());
-                updateCostIfNeeded(current, target, current.getFinalCost() + robot.getVHCost());
-
-                if (current.getY() - 1 >= 0) {
-                    target = scenario.getNode(current.getX() + 1, current.getY() - 1);
-                    updateCostIfNeeded(current, target, current.getFinalCost() + robot.getDiagonalCost());
-                }
-
-                if(current.getY() + 1 < scenario.getMapHeight()) {
-                    target = scenario.getNode(current.getX() + 1, current.getY() + 1);
-                    updateCostIfNeeded(current, target, current.getFinalCost() + robot.getDiagonalCost());
-                }
-            }
-
-        }
-
-        if (scenario.getEndNode().isClosed()) {
-            Node currentNode = scenario.getEndNode();
-
-            while(currentNode != null) {
-                solution.add(currentNode);
-                currentNode = currentNode.getParent();
+            Set<Node> neighbours = scenario.findNeighbours(currentNode);
+            for(Node neighbour : neighbours) {
+                updateCost(currentNode, neighbour, scenario);
             }
         }
 
         return solution;
     }
 
-    private void updateCostIfNeeded(Node current, Node target, int cost) {
-        if (target == null || target.isClosed()) {
+    private void updateCost(Node current, Node target, Scenario scenario) {
+        Map map = scenario.getMap();
+        Robot robot = scenario.getRobot();
+        if(target == null || map.getClosedNodes().contains(target)) {
             return;
         }
+        int cost= map.calculateMoveCost(current, target, robot) ;
 
-        int projectedCost = target.getHeuristicCost() + cost;
-        if (target.isClosed() || projectedCost < target.getFinalCost()) {
-            target.setFinalCost(projectedCost);
+        int potentialCost = target.getHeuristicCost() + cost;
+        boolean isOpen = map.getOpenNodes().contains(target);
+
+        if(!isOpen || potentialCost < target.getFinalCost()) {
+            target.setFinalCost(potentialCost);
             target.setParent(current);
 
-            if(target.isClosed()) {
-                target.open();
+            if(!isOpen) {
+                map.getOpenNodes().add(target);
             }
         }
-    }
+}
+
 }
