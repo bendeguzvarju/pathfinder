@@ -18,7 +18,7 @@ public class AStarTest {
     public void testAStar1(){
         //GIVEN
         int[][] blocks = new int[][] {
-                {0,4}, {2,2}, {3,0}, {3,3}, {2,1}, {2,3}
+                {0,4}, {2,2}, {3,0}, {3,3}, {2,1}, {2,3}, {2,0}
         };
 
         underTest = new AStar(5,5,0,0,3,2,blocks);

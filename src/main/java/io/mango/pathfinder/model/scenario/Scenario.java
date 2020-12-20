@@ -5,6 +5,7 @@ import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.PriorityQueue;
@@ -14,6 +15,7 @@ import java.util.stream.Stream;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 public class Scenario {
     private Map map;
     private Robot robot;

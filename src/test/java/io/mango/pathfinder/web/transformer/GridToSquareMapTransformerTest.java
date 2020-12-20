@@ -5,16 +5,16 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
-@WebMvcTest(AStarMapDtoToSquareMapTransformer.class)
-public class AStarMapDtoToSquareMapTransformerTest {
+@WebMvcTest(GridToSquareMapTransformer.class)
+public class GridToSquareMapTransformerTest {
     public static final int height = 4;
     public static final int width = 6;
 
-    private AStarMapDtoToSquareMapTransformer underTest;
+    private GridToSquareMapTransformer underTest;
 
     @Before
     public void setUp() {
-        underTest = new AStarMapDtoToSquareMapTransformer();
+        underTest = new GridToSquareMapTransformer();
     }
 
     @Test

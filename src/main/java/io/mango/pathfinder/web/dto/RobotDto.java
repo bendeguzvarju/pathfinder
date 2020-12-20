@@ -15,7 +15,7 @@ import com.sun.istack.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AStarRobotDto {
+public class RobotDto {
     @NotNull
     @NotEmpty
     private int diagonalCost;

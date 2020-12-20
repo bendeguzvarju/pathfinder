@@ -11,7 +11,8 @@ import java.util.Set;
  i [0][0][0][0]
  g  [0][0][0][0]
  h [0][0][0][0]
- t     width
+ t  [0][0][0][0]
+      width
  */
 public class HexMap extends Map {
     private static final int MOVE_COST = 10;

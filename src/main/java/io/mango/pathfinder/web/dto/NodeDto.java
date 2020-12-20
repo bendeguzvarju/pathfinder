@@ -15,8 +15,11 @@ import com.sun.istack.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AStarMapDto {
+public class NodeDto {
     @NotNull
     @NotEmpty
-    private char[][] grid;
+    private int x;
+    @NotNull
+    @NotEmpty
+    private int y;
 }
