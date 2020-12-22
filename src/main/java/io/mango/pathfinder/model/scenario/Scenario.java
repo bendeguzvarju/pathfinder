@@ -65,4 +65,27 @@ public class Scenario {
     public Set<Node> findNeighbours(Node currentNode) {
         return map.findNeighbours(currentNode);
     }
+
+    public void displayMap() {
+        Node node;
+        for (int x = 0; x < map.getWidth(); x++) {
+            for(int y = 0; y < map.getHeight(); y++) {
+                node = getNode(x,y);
+                if (node == null) {
+                    System.out.print("B ");
+                } else if (node.equals(startNode)) {
+                    System.out.print("S ");
+                } else if (node.equals(endNode)){
+                    System.out.print("E ");
+                } else {
+                    System.out.print("0 ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void displaySolution() {
+
+    }
 }

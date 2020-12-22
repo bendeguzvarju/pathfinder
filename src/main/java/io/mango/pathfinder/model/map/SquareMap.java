@@ -10,24 +10,20 @@ public class SquareMap extends Map {
     private static final int HORIZONTAL_MOVE_COST = 10;
     private static final int DIAGONAL_MOVE_COST = 14;
 
+    public void setGrid(Node[][] grid) {
+        this.grid = grid;
+        this.setWidth(grid.length);
+        this.setHeight(grid[0].length);
+    }
+
     @Override
     public Node getNode(int x, int y) {
-        return grid[y][x];
+        return grid[x][y];
     }
 
     @Override
     public void setNode(Node node) {
-        grid[node.getY()][node.getX()] = node;
-    }
-
-    @Override
-    public int getWidth() {
-        return grid.length;
-    }
-
-    @Override
-    public int getHeight() {
-        return grid[0].length;
+        grid[node.getX()][node.getY()] = node;
     }
 
     @Override
@@ -40,7 +36,7 @@ public class SquareMap extends Map {
                     int columnIndex = node.getX() + i;
                     int rowIndex = node.getY() + j;
                     if (isOnGrid(columnIndex, rowIndex)) {
-                        neighbour = this.getNode(columnIndex, rowIndex);
+                        neighbour = this.getNode(rowIndex, columnIndex);
                         if(neighbour != null && !neighbour.equals(node)) {
                             neighbours.add(neighbour);
                         }
@@ -52,7 +48,7 @@ public class SquareMap extends Map {
     }
 
     private boolean isOnGrid(int columnIndex, int rowIndex) {
-        return columnIndex >= 0 && rowIndex >= 0;
+        return columnIndex >= 0 && rowIndex >= 0 && columnIndex < getHeight() && rowIndex < getWidth();
     }
 
     @Override
@@ -77,5 +73,19 @@ public class SquareMap extends Map {
     private boolean horizontalNeighbours(Node node1, Node node2) {
         return node1.getX() == node2.getX();
 
+    }
+
+    @Override
+    public String toString(){
+        String result = "";
+
+        for(int x = 0; x < this.getWidth(); x++) {
+            for(int y = 0; y < this.getHeight(); y++) {
+                result += this.getNode(x,y);
+            }
+            result += "\n";
+        }
+        result +="tostring vége";
+        return result;
     }
 }

@@ -28,16 +28,6 @@ public class HexMap extends Map {
     }
 
     @Override
-    public int getWidth() {
-        return grid.length;
-    }
-
-    @Override
-    public int getHeight() {
-        return grid[0].length;
-    }
-
-    @Override
     public Set<Node> findNeighbours(Node node) {
         Set<Node> neighbours = new HashSet<>();
 

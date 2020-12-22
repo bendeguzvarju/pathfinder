@@ -23,6 +23,7 @@ public class AStarService {
 
         while(true) {
             currentNode = scenario.getOpenNodes().poll();
+            System.out.println(currentNode);
             if(currentNode == null) {
                 break;
             }
