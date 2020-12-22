@@ -28,7 +28,11 @@ public abstract class Map {
 
     public abstract void setNode(Node node);
 
+    public abstract void addBlock(int x, int y);
+
     public abstract Set<Node> findNeighbours(Node node);
+
+    public abstract boolean areNeighbours(Node node1, Node node2);
 
     public abstract int calculateMoveCost(Node node1, Node node2, Robot robot);
 

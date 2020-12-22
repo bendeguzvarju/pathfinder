@@ -62,6 +62,7 @@ public class AStarService {
         if(!isOpen || potentialCost < target.getFinalCost()) {
             target.setFinalCost(potentialCost);
             target.setParent(current);
+            System.out.println(scenario.getMap().areNeighbours(target, current));
 
             if(!isOpen) {
                 map.getOpenNodes().add(target);

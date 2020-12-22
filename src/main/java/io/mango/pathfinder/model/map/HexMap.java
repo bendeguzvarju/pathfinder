@@ -28,10 +28,20 @@ public class HexMap extends Map {
     }
 
     @Override
+    public void addBlock(int x, int y) {
+
+    }
+
+    @Override
     public Set<Node> findNeighbours(Node node) {
         Set<Node> neighbours = new HashSet<>();
 
         return neighbours;
+    }
+
+    @Override
+    public boolean areNeighbours(Node node1, Node node2) {
+        return findNeighbours(node1).contains(node2);
     }
 
     @Override

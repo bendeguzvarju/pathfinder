@@ -10,6 +10,22 @@ public class SquareMap extends Map {
     private static final int HORIZONTAL_MOVE_COST = 10;
     private static final int DIAGONAL_MOVE_COST = 14;
 
+    public SquareMap() {
+
+    }
+    public SquareMap(int width, int height) {
+        Node[][] nodeGrid = new Node[width][height];
+        Node node;
+        for(int x = 0; x < nodeGrid.length; x++) {
+            for(int y = 0;y < nodeGrid[0].length; y++) {
+                node = new Node(x,y);
+                nodeGrid[x][y] = node;
+            }
+        }
+        this.setGrid(nodeGrid);
+
+    }
+
     public void setGrid(Node[][] grid) {
         this.grid = grid;
         this.setWidth(grid.length);
@@ -27,16 +43,21 @@ public class SquareMap extends Map {
     }
 
     @Override
+    public void addBlock(int x, int y) {
+        grid[x][y] = null;
+    }
+
+    @Override
     public Set<Node> findNeighbours(Node node) {
         Set<Node> neighbours = new HashSet<>();
         Node neighbour;
         if(node != null) {
             for(int i = -1; i <= 1; i++) {
                 for(int j = -1; j <= 1; j++) {
-                    int columnIndex = node.getX() + i;
-                    int rowIndex = node.getY() + j;
-                    if (isOnGrid(columnIndex, rowIndex)) {
-                        neighbour = this.getNode(rowIndex, columnIndex);
+                    int targetX = node.getX() + i;
+                    int targetY = node.getY() + j;
+                    if (isOnGrid(targetX, targetY)) {
+                        neighbour = this.getNode(targetX, targetY);
                         if(neighbour != null && !neighbour.equals(node)) {
                             neighbours.add(neighbour);
                         }
@@ -45,6 +66,11 @@ public class SquareMap extends Map {
             }
         }
         return neighbours;
+    }
+
+    @Override
+    public boolean areNeighbours(Node node1, Node node2) {
+        return findNeighbours(node1).contains(node2);
     }
 
     private boolean isOnGrid(int columnIndex, int rowIndex) {
@@ -77,15 +103,13 @@ public class SquareMap extends Map {
 
     @Override
     public String toString(){
-        String result = "";
-
+        StringBuilder result = new StringBuilder();
         for(int x = 0; x < this.getWidth(); x++) {
             for(int y = 0; y < this.getHeight(); y++) {
-                result += this.getNode(x,y);
+                result.append(this.getNode(x, y));
             }
-            result += "\n";
+            result.append("\n");
         }
-        result +="tostring vége";
-        return result;
+        return result.toString();
     }
 }

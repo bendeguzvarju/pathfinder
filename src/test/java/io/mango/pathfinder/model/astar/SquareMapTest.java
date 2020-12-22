@@ -1,11 +1,16 @@
 package io.mango.pathfinder.model.astar;
 
+import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.map.SquareMap;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 public class SquareMapTest {
@@ -42,5 +47,23 @@ public class SquareMapTest {
 
 
         return nodeGrid;
+    }
+
+    @Test
+    public void findNeighboursReturnsCorrectNodes() {
+        //GIVEN
+        Map underTest = new SquareMap(3,4);
+        underTest.addBlock(1,1);
+        underTest.addBlock(1,2);
+        System.out.println(underTest);
+        Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(0,0));
+        expected.add(underTest.getNode(0,2));
+        expected.add(underTest.getNode(1,0));
+        //WHEN
+        Node target = underTest.getNode(0,1);
+        Set<Node> actual = underTest.findNeighbours(target);
+        //THEN
+        Assert.assertEquals(expected, actual);
     }
 }
