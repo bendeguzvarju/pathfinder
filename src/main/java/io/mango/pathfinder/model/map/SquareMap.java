@@ -73,8 +73,8 @@ public class SquareMap extends Map {
         return findNeighbours(node1).contains(node2);
     }
 
-    private boolean isOnGrid(int columnIndex, int rowIndex) {
-        return columnIndex >= 0 && rowIndex >= 0 && columnIndex < getHeight() && rowIndex < getWidth();
+    private boolean isOnGrid(int x, int y) {
+        return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
     }
 
     @Override

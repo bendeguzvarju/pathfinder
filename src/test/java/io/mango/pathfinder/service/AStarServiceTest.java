@@ -27,9 +27,9 @@ public class AStarServiceTest {
     public void testFindCheapestPathReturnsCorrectPath(){
         //GIVEN
         Robot robot = new Robot(1,1);
-        Map map = createTestMap();
+        Map map = new SquareMap(3,5);
         Node startNode = new Node(0,0);
-        Node endNode = new Node(3,3);
+        Node endNode = new Node(2,3);
         Scenario scenario = new Scenario(map, robot, startNode, endNode);
 
         Set<Node> expected = new HashSet<>();
@@ -37,28 +37,9 @@ public class AStarServiceTest {
         Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
         scenario.displayMap();
-        System.out.println("Width: " + map.getWidth());
-        System.out.println("Height: " + map.getHeight());
         System.out.println(map);
         System.out.println("endNode parent: " + endNode.getParent());
         Assert.assertEquals(expected, actual);
-    }
-
-    private Map createTestMap() {
-        Map squareMap = new SquareMap();
-        squareMap.setGrid(new Node[6][4]);
-        for (int x = 0; x < squareMap.getWidth(); x++) {
-            for(int y = 0; y < squareMap.getHeight(); y++) {
-                Node node = new Node(x,y);
-                squareMap.setNode(node);
-            }
-        }
-        squareMap.getGrid()[1][0] = null;
-        squareMap.getGrid()[1][1] = null;
-        squareMap.getGrid()[1][2] = null;
-        squareMap.getGrid()[1][3] = null;
-
-        return squareMap;
     }
 
 }

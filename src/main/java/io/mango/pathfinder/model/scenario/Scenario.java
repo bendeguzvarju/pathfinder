@@ -85,7 +85,4 @@ public class Scenario {
         }
     }
 
-    public void displaySolution() {
-
-    }
 }
