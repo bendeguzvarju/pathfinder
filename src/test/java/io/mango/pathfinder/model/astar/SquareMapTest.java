@@ -66,4 +66,25 @@ public class SquareMapTest {
         //THEN
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void findNeighboursReturnsAllAdjacentNodes() {
+        //GIVEN
+        Map underTest = new SquareMap(3,4);
+        System.out.println(underTest);
+        Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(0,0));
+        expected.add(underTest.getNode(0,1));
+        expected.add(underTest.getNode(0,2));
+        expected.add(underTest.getNode(1,0));
+        expected.add(underTest.getNode(1,2));
+        expected.add(underTest.getNode(2,0));
+        expected.add(underTest.getNode(2,1));
+        expected.add(underTest.getNode(2,2));
+        //WHEN
+        Node target = underTest.getNode(1,1);
+        Set<Node> actual = underTest.findNeighbours(target);
+        //THEN
+        Assert.assertEquals(expected, actual);
+    }
 }
