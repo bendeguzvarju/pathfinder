@@ -16,8 +16,8 @@ public class SquareMap extends Map {
     public SquareMap(int width, int height) {
         Node[][] nodeGrid = new Node[width][height];
         Node node;
-        for(int x = 0; x < nodeGrid.length; x++) {
-            for(int y = 0;y < nodeGrid[0].length; y++) {
+        for(int x = 0; x < width; x++) {
+            for(int y = 0;y < height; y++) {
                 node = new Node(x,y);
                 nodeGrid[x][y] = node;
             }

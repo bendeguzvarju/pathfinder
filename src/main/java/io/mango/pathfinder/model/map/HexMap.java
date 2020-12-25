@@ -17,12 +17,14 @@ import java.util.Set;
 public class HexMap extends Map {
     private static final int MOVE_COST = 10;
     private static final Node[] RELATIVE_NEIGHBOUR_CANDIDATES = {
-            new Node(1,0),
-            new Node(-1,0),
-            new Node(0,1),
-            new Node(0,-1),
             new Node(-1,-1),
-            new Node(-1,1)
+            new Node(-1,0),
+            new Node(-1,1),
+            new Node(0,-1),
+            new Node(0,1),
+            new Node(1,-1),
+            new Node(1,0),
+            new Node(1,1)
     };
 
     public HexMap() {
@@ -49,12 +51,12 @@ public class HexMap extends Map {
 
     @Override
     public Node getNode(int x, int y) {
-        return grid[y][x];
+        return grid[x][y];
     }
 
     @Override
     public void setNode(Node node) {
-        grid[node.getY()][node.getX()] = node;
+        grid[node.getX()][node.getY()] = node;
     }
 
     @Override
@@ -67,12 +69,22 @@ public class HexMap extends Map {
         Set<Node> neighbours = new HashSet<>();
         if(node != null) {
             for( Node relativeNeighbourCandidate : RELATIVE_NEIGHBOUR_CANDIDATES) {
-                Node candidate = getNode(node.getX() + relativeNeighbourCandidate.getX(), node.getY() + relativeNeighbourCandidate.getY());
+                int candidateX = node.getX() + relativeNeighbourCandidate.getX();
+                int candidateY = node.getY() + relativeNeighbourCandidate.getY();
+                Node candidate = getNode(candidateX, candidateY);
                 if(candidate != null && !candidate.isBlock()) {
                     neighbours.add(candidate);
                 }
             }
         }
+        if(node.getY() % 2 == 1) {
+            neighbours.remove(getNode(node.getX() - 1, node.getY() - 1));
+            neighbours.remove(getNode(node.getX() + 1, node.getY() - 1));
+        } else {
+            neighbours.remove(getNode(node.getX() - 1, node.getY() - 1));
+            neighbours.remove(getNode(node.getX() + 1, node.getY() - 1));
+        }
+
 
 
         return neighbours;

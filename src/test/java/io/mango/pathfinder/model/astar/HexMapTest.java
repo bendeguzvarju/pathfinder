@@ -1,14 +1,11 @@
 package io.mango.pathfinder.model.astar;
 
 import io.mango.pathfinder.model.map.HexMap;
-import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
-import io.mango.pathfinder.web.transformer.GridToHexMapTransformer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
@@ -25,20 +22,43 @@ public class HexMapTest {
     }
 
     @Test
-    public void findNeighboursReturnsCorrectNodes() {
+    public void findNeighboursReturnsCorrectNodesForEvenColumn() {
         //GIVEN
-        underTest = new HexMap(4,4);
-        Node targetNode = underTest.getNode(2,2);
+        underTest = new HexMap(5,5);
+        Node target = new Node(2,3);
+        underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(1,3));
+        expected.add(underTest.getNode(1,4));
+        expected.add(underTest.getNode(2,2));
+        expected.add(underTest.getNode(2,4));
+        expected.add(underTest.getNode(3,3));
+        expected.add(underTest.getNode(3,4));
         //WHEN
-        Set<Node> actual = underTest.findNeighbours(targetNode);
+        Set<Node> actual = underTest.findNeighbours(target);
         //THEN
         System.out.println(underTest);
-        System.out.println("asd");
         Assert.assertEquals(expected, actual);
+    }
 
-
-
+    @Test
+    public void findNeighboursReturnsCorrectNodesForOddColumn() {
+        //GIVEN
+        underTest = new HexMap(5,5);
+        Node target = new Node(2,2);
+        underTest.setNode(target);
+        Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(1,2));
+        expected.add(underTest.getNode(1,3));
+        expected.add(underTest.getNode(2,1));
+        expected.add(underTest.getNode(2,3));
+        expected.add(underTest.getNode(3,2));
+        expected.add(underTest.getNode(3,3));
+        //WHEN
+        Set<Node> actual = underTest.findNeighbours(target);
+        //THEN
+        System.out.println(underTest);
+        Assert.assertEquals(expected, actual);
     }
 
 }
