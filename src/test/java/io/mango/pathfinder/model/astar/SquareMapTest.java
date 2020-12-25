@@ -26,6 +26,8 @@ public class SquareMapTest {
     public void testMapInstantiation(){
         Node[][] nodeGrid = createNodeGrid();
         underTest.setGrid(nodeGrid);
+        Assert.assertEquals(underTest.getNode(0,1).getX(), 0);
+        Assert.assertEquals(underTest.getNode(0,1).getY(), 1);
         System.out.println("Map width: " + underTest.getWidth());
         System.out.println("Map height: " + underTest.getHeight());
         System.out.println("Node[0][1]: " + underTest.getNode(0,1));

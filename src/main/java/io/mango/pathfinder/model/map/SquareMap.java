@@ -23,9 +23,9 @@ public class SquareMap extends Map {
             }
         }
         this.setGrid(nodeGrid);
-
     }
 
+    @Override
     public void setGrid(Node[][] grid) {
         this.grid = grid;
         this.setWidth(grid.length);
@@ -44,7 +44,7 @@ public class SquareMap extends Map {
 
     @Override
     public void addBlock(int x, int y) {
-        grid[x][y] = null;
+        getNode(x,y).setBlock(true);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SquareMap extends Map {
                     int targetY = node.getY() + j;
                     if (isOnGrid(targetX, targetY)) {
                         neighbour = this.getNode(targetX, targetY);
-                        if(neighbour != null && !neighbour.equals(node)) {
+                        if(!neighbour.isBlock() && !neighbour.equals(node)) {
                             neighbours.add(neighbour);
                         }
                     }

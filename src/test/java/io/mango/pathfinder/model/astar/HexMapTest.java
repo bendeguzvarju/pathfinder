@@ -25,29 +25,20 @@ public class HexMapTest {
     }
 
     @Test
-    public void findNeighboursReturnsNeighbours() {
+    public void findNeighboursReturnsCorrectNodes() {
         //GIVEN
-        Node targetNode = new Node();
-        underTest = createTestMap1();
+        underTest = new HexMap(4,4);
+        Node targetNode = underTest.getNode(2,2);
         Set<Node> expected = new HashSet<>();
         //WHEN
         Set<Node> actual = underTest.findNeighbours(targetNode);
         //THEN
+        System.out.println(underTest);
+        System.out.println("asd");
         Assert.assertEquals(expected, actual);
 
 
 
     }
 
-    private HexMap createTestMap1() {
-        Map hexMap = new HexMap();
-        Node[][] grid = createTestGrid1();
-        hexMap.setGrid(grid);
-
-        return null;
-    }
-
-    private Node[][] createTestGrid1() {
-        return null;
-    }
 }

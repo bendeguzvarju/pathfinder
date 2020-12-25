@@ -20,11 +20,9 @@ public class AStarService {
         scenario.getOpenNodes().add(scenario.getStartNode());
 
         Node currentNode;
-
         while(true) {
             currentNode = scenario.getOpenNodes().poll();
-            System.out.println(currentNode);
-            if(currentNode == null) {
+            if(currentNode == null || currentNode.isBlock()) {
                 break;
             }
 
@@ -32,8 +30,9 @@ public class AStarService {
 
             if(currentNode.equals(scenario.getEndNode())) {
 
-                while(currentNode != null) {
+                while(currentNode != null && !currentNode.isBlock() ) {
                     solution.add(currentNode);
+                    currentNode.setSolution(true);
                     currentNode = currentNode.getParent();
                 }
                 return solution ;
@@ -51,7 +50,7 @@ public class AStarService {
     private void updateCost(Node current, Node target, Scenario scenario) {
         Map map = scenario.getMap();
         Robot robot = scenario.getRobot();
-        if(target == null || map.getClosedNodes().contains(target)) {
+        if(target.isBlock() || map.getClosedNodes().contains(target)) {
             return;
         }
         int cost= map.calculateMoveCost(current, target, robot) ;

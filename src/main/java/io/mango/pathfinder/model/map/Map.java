@@ -30,6 +30,8 @@ public abstract class Map {
 
     public abstract void addBlock(int x, int y);
 
+    public abstract void setGrid(Node[][] grid);
+
     public abstract Set<Node> findNeighbours(Node node);
 
     public abstract boolean areNeighbours(Node node1, Node node2);

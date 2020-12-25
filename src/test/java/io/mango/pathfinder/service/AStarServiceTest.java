@@ -27,17 +27,25 @@ public class AStarServiceTest {
     public void testFindCheapestPathReturnsCorrectPath(){
         //GIVEN
         Robot robot = new Robot(1,1);
-        Map map = new SquareMap(3,5);
+        Map map = new SquareMap(5,5);
         Node startNode = new Node(0,0);
-        Node endNode = new Node(2,3);
+        Node endNode = new Node(4,3);
         Scenario scenario = new Scenario(map, robot, startNode, endNode);
-
+        map.addBlock(1,2);
+        map.addBlock(1,0);
+        map.addBlock(1,1);
+        map.addBlock(1,3);
+        map.addBlock(2,4);
+        map.addBlock(3,3);
+        map.addBlock(3,4);
+        map.addBlock(3,2);
         Set<Node> expected = new HashSet<>();
+        expected.add(endNode);
         //WHEN
         Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
-        scenario.displayMap();
         System.out.println(map);
+
         System.out.println("endNode parent: " + endNode.getParent());
         Assert.assertEquals(expected, actual);
     }
