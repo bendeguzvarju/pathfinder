@@ -1,5 +1,6 @@
 package io.mango.pathfinder.service;
 
+import io.mango.pathfinder.model.map.HexMap;
 import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.astar.Robot;
@@ -24,7 +25,7 @@ public class AStarServiceTest {
     }
 
     @Test
-    public void testFindCheapestPathReturnsCorrectPath(){
+    public void testFindCheapestPathReturnsCorrectPathForSquareMaps(){
         //GIVEN
         Robot robot = new Robot(1,1);
         Map map = new SquareMap(5,5);
@@ -40,14 +41,41 @@ public class AStarServiceTest {
         map.addBlock(3,4);
         map.addBlock(3,2);
         Set<Node> expected = new HashSet<>();
+        expected.add(startNode);
+        expected.add(map.getNode(0,1));
+        expected.add(map.getNode(0,2));
+        expected.add(map.getNode(0,3));
+        expected.add(map.getNode(1,4));
+        expected.add(map.getNode(2,3));
+        expected.add(map.getNode(2,2));
+        expected.add(map.getNode(3,1));
+        expected.add(map.getNode(4,2));
+        expected.add(endNode);
+        //WHEN
+        Set<Node> actual = underTest.findCheapestPath(scenario);
+        //THEN
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testFindCheapestPathReturnsCorrectPathForHexMaps(){
+        //GIVEN
+        Robot robot = new Robot(1,1);
+        Map map = new HexMap(5,5);
+        Node startNode = new Node(0,0);
+        Node endNode = new Node(4,3);
+        map.addBlock(1,3);
+        Scenario scenario = new Scenario(map, robot, startNode, endNode);
+        Set<Node> expected = new HashSet<>();
+        expected.add(startNode);
         expected.add(endNode);
         //WHEN
         Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
         System.out.println(map);
-
-        System.out.println("endNode parent: " + endNode.getParent());
         Assert.assertEquals(expected, actual);
     }
+
+
 
 }

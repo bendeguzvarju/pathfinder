@@ -29,8 +29,16 @@ public class Node {
 
     @Override
     public String toString() {
-
-        String result = "[" + this.x + ";" + this.y + "]";
+        String result = "";
+        result += "[" + this.x;
+        if (this.isBlock()) {
+            result += "B";
+        } else if (this.isSolution()) {
+            result += "X";
+        } else {
+            result += ";";
+        }
+        result += this.y + "]";
 
         return result;
     }

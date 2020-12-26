@@ -22,7 +22,7 @@ public class HexMapTest {
     }
 
     @Test
-    public void findNeighboursReturnsCorrectNodesForEvenColumn() {
+    public void findNeighboursReturnsCorrectNodesForOddColumn() {
         //GIVEN
         underTest = new HexMap(5,5);
         Node target = new Node(2,3);
@@ -42,7 +42,7 @@ public class HexMapTest {
     }
 
     @Test
-    public void findNeighboursReturnsCorrectNodesForOddColumn() {
+    public void findNeighboursReturnsCorrectNodesForOddColumn2() {
         //GIVEN
         underTest = new HexMap(5,5);
         Node target = new Node(2,2);
@@ -54,6 +54,59 @@ public class HexMapTest {
         expected.add(underTest.getNode(2,3));
         expected.add(underTest.getNode(3,2));
         expected.add(underTest.getNode(3,3));
+        //WHEN
+        Set<Node> actual = underTest.findNeighbours(target);
+        //THEN
+        System.out.println(underTest);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findNeighboursDoesNotCheckOutOfBoundNodes() {
+        //GIVEN
+        underTest = new HexMap(5,5);
+        Node target = new Node(0,0);
+        underTest.setNode(target);
+        Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(1,0));
+        expected.add(underTest.getNode(0,1));
+        expected.add(underTest.getNode(1,1));
+        //WHEN
+        Set<Node> actual = underTest.findNeighbours(target);
+        //THEN
+        System.out.println(underTest);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findNeighboursDoesNotCheckOutOfBoundNodes2() {
+        //GIVEN
+        underTest = new HexMap(5,5);
+        Node target = new Node(0,4);
+        underTest.setNode(target);
+        Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(0,3));
+        expected.add(underTest.getNode(1,4));
+        //WHEN
+        Set<Node> actual = underTest.findNeighbours(target);
+        //THEN
+        System.out.println(underTest);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findNeighboursReturnsCorrectNodes() {
+        //GIVEN
+        underTest = new HexMap(5,5);
+        Node target = new Node(1,1);
+        underTest.setNode(target);
+        Set<Node> expected = new HashSet<>();
+        expected.add(underTest.getNode(0,0));
+        expected.add(underTest.getNode(0,1));
+        expected.add(underTest.getNode(1,0));
+        expected.add(underTest.getNode(2,0));
+        expected.add(underTest.getNode(2,1));
+        expected.add(underTest.getNode(1,2));
         //WHEN
         Set<Node> actual = underTest.findNeighbours(target);
         //THEN

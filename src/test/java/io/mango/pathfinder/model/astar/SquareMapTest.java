@@ -24,31 +24,22 @@ public class SquareMapTest {
 
     @Test
     public void testMapInstantiation(){
-        Node[][] nodeGrid = createNodeGrid();
-        underTest.setGrid(nodeGrid);
-        Assert.assertEquals(underTest.getNode(0,1).getX(), 0);
-        Assert.assertEquals(underTest.getNode(0,1).getY(), 1);
-        System.out.println("Map width: " + underTest.getWidth());
-        System.out.println("Map height: " + underTest.getHeight());
-        System.out.println("Node[0][1]: " + underTest.getNode(0,1));
-        System.out.println(underTest);
+        //GIVEN
+        underTest = new SquareMap(4,3);
+        //WHEN
+        //THEN
+        Assert.assertEquals(underTest.getWidth(), 4);
+        Assert.assertEquals(underTest.getHeight(), 3);
     }
 
-    private Node[][] createNodeGrid() {
-        Node[][] nodeGrid = new Node[3][4];
-        System.out.println("Grid width: " + nodeGrid.length);
-        System.out.println("Grid height: " + nodeGrid[0].length);
-
-        Node node;
-        for(int x = 0; x < nodeGrid.length; x++) {
-            for(int y = 0;y < nodeGrid[0].length; y++) {
-                node = new Node(x,y);
-                nodeGrid[x][y] = node;
-            }
-        }
-
-
-        return nodeGrid;
+    @Test
+    public void testMapAddBlockPutsBlockAtExpectedPosition(){
+        //GIVEN
+        underTest = new SquareMap(4,3);
+        //WHEN
+        underTest.addBlock(2,1);
+        //THEN
+        Assert.assertTrue(underTest.getNode(2,1).isBlock());
     }
 
     @Test
@@ -87,6 +78,7 @@ public class SquareMapTest {
         Node target = underTest.getNode(1,1);
         Set<Node> actual = underTest.findNeighbours(target);
         //THEN
+
         Assert.assertEquals(expected, actual);
     }
 }

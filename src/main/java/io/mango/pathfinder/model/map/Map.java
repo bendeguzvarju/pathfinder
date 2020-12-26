@@ -2,7 +2,6 @@ package io.mango.pathfinder.model.map;
 
 import io.mango.pathfinder.model.astar.Robot;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
