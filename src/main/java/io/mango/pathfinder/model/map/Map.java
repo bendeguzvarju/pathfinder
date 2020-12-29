@@ -35,6 +35,12 @@ public abstract class Map {
 
     public abstract boolean areNeighbours(Node node1, Node node2);
 
+    public abstract void setHeuristicCostForNodes(Node endNode);
+
     public abstract int calculateMoveCost(Node node1, Node node2, Robot robot);
+
+    public abstract void displayHeuristicMap();
+
+    public abstract void displayFinalCosts();
 
 }

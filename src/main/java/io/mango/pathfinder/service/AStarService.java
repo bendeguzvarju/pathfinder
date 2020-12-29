@@ -18,6 +18,7 @@ public class AStarService {
         scenario.setNode(scenario.getStartNode());
         scenario.setNode(scenario.getEndNode());
         scenario.getOpenNodes().add(scenario.getStartNode());
+        scenario.setHeuristicCostForNodes(scenario.getEndNode());
 
         Node currentNode;
         while(true) {

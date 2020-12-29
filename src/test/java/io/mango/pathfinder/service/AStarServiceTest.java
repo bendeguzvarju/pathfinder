@@ -54,6 +54,12 @@ public class AStarServiceTest {
         //WHEN
         Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
+        System.out.println("Map: ");
+        System.out.println(map);
+        System.out.println("Final costs: ");
+        map.displayFinalCosts();
+        System.out.println("Heuristic costs: ");
+        map.displayHeuristicMap();
         Assert.assertEquals(expected, actual);
     }
 
@@ -64,16 +70,18 @@ public class AStarServiceTest {
         Map map = new HexMap(5,5);
         Node startNode = new Node(0,0);
         Node endNode = new Node(4,3);
-        map.addBlock(1,3);
+        map.addBlock(2,1);
         Scenario scenario = new Scenario(map, robot, startNode, endNode);
-        Set<Node> expected = new HashSet<>();
-        expected.add(startNode);
-        expected.add(endNode);
+        int expected = 6;
         //WHEN
         Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
         System.out.println(map);
-        Assert.assertEquals(expected, actual);
+        System.out.println("Final costs: ");
+        scenario.displayFinalCosts();
+        System.out.println("Heuristic map: ");
+        scenario.displayHeuristicMap();
+        Assert.assertEquals(expected, actual.size());
     }
 
 

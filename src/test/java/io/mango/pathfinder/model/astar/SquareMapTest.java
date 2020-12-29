@@ -48,7 +48,6 @@ public class SquareMapTest {
         Map underTest = new SquareMap(3,4);
         underTest.addBlock(1,1);
         underTest.addBlock(1,2);
-        System.out.println(underTest);
         Set<Node> expected = new HashSet<>();
         expected.add(underTest.getNode(0,0));
         expected.add(underTest.getNode(0,2));
@@ -64,7 +63,6 @@ public class SquareMapTest {
     public void findNeighboursReturnsAllAdjacentNodes() {
         //GIVEN
         Map underTest = new SquareMap(3,4);
-        System.out.println(underTest);
         Set<Node> expected = new HashSet<>();
         expected.add(underTest.getNode(0,0));
         expected.add(underTest.getNode(0,1));

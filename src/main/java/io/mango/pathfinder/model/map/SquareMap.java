@@ -4,11 +4,13 @@ import io.mango.pathfinder.model.astar.Robot;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class SquareMap extends Map {
     private static final int VERTICAL_MOVE_COST = 10;
     private static final int HORIZONTAL_MOVE_COST = 10;
     private static final int DIAGONAL_MOVE_COST = 14;
+    public static final int FORMATTED_FINAL_COST_LENGTH = 3;
 
     public SquareMap() {
 
@@ -23,6 +25,20 @@ public class SquareMap extends Map {
             }
         }
         this.setGrid(nodeGrid);
+    }
+
+    @Override
+    public void setHeuristicCostForNodes(Node endNode) {
+        Stream.of(this.getGrid())
+                .flatMap(Stream::of)
+                .forEach(node -> setHeuristicCost(node, endNode));
+    }
+
+    private void setHeuristicCost(Node node, Node endNode) {
+        if(node != null) {
+            node.setHeuristicCost(Math.abs(node.getX() - endNode.getX()) + Math.abs(node.getY() - endNode.getY()));
+            node.setSolution(false);
+        }
     }
 
     @Override
@@ -68,13 +84,13 @@ public class SquareMap extends Map {
         return neighbours;
     }
 
+    private boolean isOnGrid(int x, int y) {
+        return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
+    }
+
     @Override
     public boolean areNeighbours(Node node1, Node node2) {
         return findNeighbours(node1).contains(node2);
-    }
-
-    private boolean isOnGrid(int x, int y) {
-        return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
     }
 
     @Override
@@ -98,15 +114,57 @@ public class SquareMap extends Map {
 
     private boolean horizontalNeighbours(Node node1, Node node2) {
         return node1.getX() == node2.getX();
+    }
 
+    @Override
+    public void displayHeuristicMap() {
+        StringBuilder result = new StringBuilder();
+        for(int x = 0; x < this.getWidth(); x++) {
+            for(int y = 0; y < this.getHeight(); y++) {
+                String representation;
+                if (this.getNode(x,y).isBlock()) {
+                    representation = "[-]";
+                } else {
+                    representation = "[" + this.getNode(x, y).getHeuristicCost() + "]";
+                }
+                result.append(representation);
+            }
+            result.append("\n");
+        }
+        System.out.println(result.toString());
+    }
+
+    @Override
+    public void displayFinalCosts() {
+        StringBuilder result = new StringBuilder();
+        for(int x = 0; x < this.getWidth(); x++) {
+            for(int y = 0; y < this.getHeight(); y++) {
+                String formattedString = formatToFixedLengthString(String.valueOf(this.getNode(x, y).getFinalCost()));
+                result.append("[").append(formattedString).append("]");
+            }
+            result.append("\n");
+        }
+        System.out.println(result.toString());
+    }
+
+    private String formatToFixedLengthString(String string) {
+        return String.format("%1$"+ FORMATTED_FINAL_COST_LENGTH + "s", string);
     }
 
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
+        Node node;
         for(int x = 0; x < this.getWidth(); x++) {
             for(int y = 0; y < this.getHeight(); y++) {
-                result.append(this.getNode(x, y));
+                node = this.getNode(x, y);
+                if (node.isSolution()) {
+                    result.append("[ X ]");
+                } else if(node.isBlock()){
+                    result.append("[ B ]");
+                } else {
+                    result.append(node);
+                }
             }
             result.append("\n");
         }
