@@ -4,6 +4,7 @@ import io.mango.pathfinder.model.astar.Robot;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 public class SquareMap extends Map {
@@ -15,7 +16,8 @@ public class SquareMap extends Map {
     public SquareMap() {
 
     }
-    public SquareMap(int width, int height) {
+    public SquareMap(int width, int height, ToIntFunction<Node> compareBy) {
+        super(compareBy);
         Node[][] nodeGrid = new Node[width][height];
         Node node;
         for(int x = 0; x < width; x++) {

@@ -24,7 +24,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodesForOddColumn() {
         //GIVEN
-        underTest = new HexMap(5,5);
+        underTest = new HexMap(5,5,Node::getFinalCost);
         Node target = new Node(2,3);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -44,7 +44,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodesForOddColumn2() {
         //GIVEN
-        underTest = new HexMap(5,5);
+        underTest = new HexMap(5,5,Node::getFinalCost);
         Node target = new Node(2,2);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -64,7 +64,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursDoesNotCheckOutOfBoundNodes() {
         //GIVEN
-        underTest = new HexMap(5,5);
+        underTest = new HexMap(5,5,Node::getFinalCost);
         Node target = new Node(0,0);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -81,7 +81,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursDoesNotCheckOutOfBoundNodes2() {
         //GIVEN
-        underTest = new HexMap(5,5);
+        underTest = new HexMap(5,5,Node::getFinalCost);
         Node target = new Node(0,4);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -97,7 +97,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodes() {
         //GIVEN
-        underTest = new HexMap(5,5);
+        underTest = new HexMap(5,5,Node::getFinalCost);
         Node target = new Node(1,1);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();

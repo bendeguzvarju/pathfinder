@@ -4,9 +4,11 @@ import io.mango.pathfinder.model.astar.Robot;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.function.ToIntFunction;
 
 @Getter
 @Setter
@@ -18,7 +20,11 @@ public abstract class Map {
     private int height;
 
     public Map() {
-        PriorityQueue<Node> openNodes = new PriorityQueue<Node>((Node node1, Node node2) -> Integer.compare(node1.getFinalCost(), node2.getFinalCost()));
+
+    }
+
+    public Map(ToIntFunction<Node> compareBy) {
+        PriorityQueue<Node> openNodes = new PriorityQueue<Node>(Comparator.comparingInt(compareBy));
         this.openNodes = openNodes;
         this.setClosedNodes(new HashSet<Node>());
     }

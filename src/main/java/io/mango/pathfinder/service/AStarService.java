@@ -11,14 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class AStarService {
+public class AStarService implements PathFinder{
 
     public Set<Node> findCheapestPath(Scenario scenario) {
         Set<Node> solution = new HashSet<>();
-        scenario.setNode(scenario.getStartNode());
-        scenario.setNode(scenario.getEndNode());
-        scenario.getOpenNodes().add(scenario.getStartNode());
-        scenario.setHeuristicCostForNodes(scenario.getEndNode());
 
         Node currentNode;
         while(true) {

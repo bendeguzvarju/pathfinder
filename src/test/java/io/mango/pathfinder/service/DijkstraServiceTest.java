@@ -1,11 +1,11 @@
 package io.mango.pathfinder.service;
 
+import io.mango.pathfinder.model.astar.Robot;
 import io.mango.pathfinder.model.map.HexMap;
 import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
-import io.mango.pathfinder.model.astar.Robot;
-import io.mango.pathfinder.model.scenario.Scenario;
 import io.mango.pathfinder.model.map.SquareMap;
+import io.mango.pathfinder.model.scenario.Scenario;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +16,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
-public class AStarServiceTest {
-    private AStarService underTest;
+public class DijkstraServiceTest {
+    private DijkstraService underTest;
 
     @Before
     public void setUp(){
-        underTest = new AStarService();
+        underTest = new DijkstraService();
     }
 
     @Test
@@ -36,7 +36,6 @@ public class AStarServiceTest {
         map.addBlock(1,0);
         map.addBlock(1,1);
         map.addBlock(1,3);
-        map.addBlock(2,4);
         map.addBlock(3,3);
         map.addBlock(3,4);
         map.addBlock(3,2);
@@ -52,7 +51,7 @@ public class AStarServiceTest {
         expected.add(map.getNode(4,2));
         expected.add(endNode);
         //WHEN
-        Set<Node> actual = underTest.findCheapestPath(scenario);
+        //Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
         System.out.println("Map: ");
         System.out.println(map);
@@ -60,7 +59,7 @@ public class AStarServiceTest {
         map.displayFinalCosts();
         System.out.println("Heuristic costs: ");
         map.displayHeuristicMap();
-        Assert.assertEquals(expected, actual);
+        //Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -74,14 +73,30 @@ public class AStarServiceTest {
         Scenario scenario = new Scenario(map, robot, startNode, endNode);
         int expected = 6;
         //WHEN
-        Set<Node> actual = underTest.findCheapestPath(scenario);
+        //Set<Node> actual = underTest.findCheapestPath(scenario);
         //THEN
         System.out.println(map);
         System.out.println("Final costs: ");
         scenario.displayFinalCosts();
         System.out.println("Heuristic map: ");
         scenario.displayHeuristicMap();
-        Assert.assertEquals(expected, actual.size());
+        //Assert.assertEquals(expected, actual.size());
+    }
+
+    @Test
+    public void dijkstra(){
+        underTest = new DijkstraService();
+
+        Robot robot = new Robot(1,1);
+        Map map = new HexMap(5,5, Node::getFinalCost);
+        Node startNode = new Node(0,0);
+        Node endNode = new Node(4,3);
+        Scenario scenario = new Scenario(map, robot, startNode, endNode);
+        //WHEN
+        Set<Node> actual = underTest.findCheapestPath(scenario);
+        Set<Node> expected = new HashSet<>();
+        Assert.assertEquals(actual, expected);
+
     }
 
 

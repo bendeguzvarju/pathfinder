@@ -8,10 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class DijkstraService {
+public class DijkstraService implements PathFinder{
 
     public Set<Node> findCheapestPath(Scenario scenario) {
         Set<Node> solution = new HashSet<>();
+
 
         return solution;
     }

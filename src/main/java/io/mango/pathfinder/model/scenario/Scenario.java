@@ -25,10 +25,12 @@ public class Scenario {
         startNode.setFinalCost(0);
         map.setNode(startNode);
         this.startNode = startNode;
+        map.getOpenNodes().add(startNode);
         map.setNode(endNode);
         this.endNode = endNode;
         this.map = map;
         this.robot = robot;
+        setHeuristicCostForNodes(endNode);
     }
 
     public PriorityQueue<Node> getOpenNodes() {

@@ -4,6 +4,7 @@ import io.mango.pathfinder.model.astar.Robot;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 public class HexMap extends Map {
@@ -30,7 +31,8 @@ public class HexMap extends Map {
     public HexMap() {
 
     }
-    public HexMap(int width, int height) {
+    public HexMap(int width, int height, ToIntFunction<Node> compareBy) {
+        super(compareBy);
         Node[][] nodeGrid = new Node[width][height];
         Node node;
         for(int x = 0; x < nodeGrid.length; x++) {
