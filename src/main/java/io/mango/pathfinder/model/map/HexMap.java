@@ -31,7 +31,7 @@ public class HexMap extends Map {
     public HexMap() {
 
     }
-    public HexMap(int width, int height, ToIntFunction<Node> compareBy) {
+    public HexMap(int width, int height,String compareBy) {
         super(compareBy);
         Node[][] nodeGrid = new Node[width][height];
         Node node;

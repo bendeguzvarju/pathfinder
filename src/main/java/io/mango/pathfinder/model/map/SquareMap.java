@@ -16,7 +16,7 @@ public class SquareMap extends Map {
     public SquareMap() {
 
     }
-    public SquareMap(int width, int height, ToIntFunction<Node> compareBy) {
+    public SquareMap(int width, int height, String compareBy) {
         super(compareBy);
         Node[][] nodeGrid = new Node[width][height];
         Node node;

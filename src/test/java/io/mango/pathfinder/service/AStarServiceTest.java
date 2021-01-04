@@ -28,7 +28,7 @@ public class AStarServiceTest {
     public void testFindCheapestPathReturnsCorrectPathForSquareMaps(){
         //GIVEN
         Robot robot = new Robot(1,1);
-        Map map = new SquareMap(5,5, Node::getFinalCost);
+        Map map = new SquareMap(5,5, Map.FINAL_COST);
         Node startNode = new Node(0,0);
         Node endNode = new Node(4,3);
         Scenario scenario = new Scenario(map, robot, startNode, endNode);
@@ -67,7 +67,7 @@ public class AStarServiceTest {
     public void testFindCheapestPathReturnsCorrectPathForHexMaps(){
         //GIVEN
         Robot robot = new Robot(1,1);
-        Map map = new HexMap(5,5, Node::getFinalCost);
+        Map map = new HexMap(5,5, Map.FINAL_COST);
         Node startNode = new Node(0,0);
         Node endNode = new Node(4,3);
         map.addBlock(2,1);

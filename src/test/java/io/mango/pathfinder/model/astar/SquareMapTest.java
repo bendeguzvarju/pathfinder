@@ -25,7 +25,7 @@ public class SquareMapTest {
     @Test
     public void testMapInstantiation(){
         //GIVEN
-        underTest = new SquareMap(4,3, Node::getFinalCost);
+        underTest = new SquareMap(4,3, Map.FINAL_COST);
         //WHEN
         //THEN
         Assert.assertEquals(underTest.getWidth(), 4);
@@ -35,7 +35,7 @@ public class SquareMapTest {
     @Test
     public void testMapAddBlockPutsBlockAtExpectedPosition(){
         //GIVEN
-        underTest = new SquareMap(4,3, Node::getFinalCost);
+        underTest = new SquareMap(4,3, Map.FINAL_COST);
         //WHEN
         underTest.addBlock(2,1);
         //THEN
@@ -45,7 +45,7 @@ public class SquareMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodes() {
         //GIVEN
-        Map underTest = new SquareMap(3,4,Node::getFinalCost);
+        Map underTest = new SquareMap(3,4,Map.FINAL_COST);
         underTest.addBlock(1,1);
         underTest.addBlock(1,2);
         Set<Node> expected = new HashSet<>();
@@ -62,7 +62,7 @@ public class SquareMapTest {
     @Test
     public void findNeighboursReturnsAllAdjacentNodes() {
         //GIVEN
-        Map underTest = new SquareMap(3,4, Node::getFinalCost);
+        Map underTest = new SquareMap(3,4, Map.FINAL_COST);
         Set<Node> expected = new HashSet<>();
         expected.add(underTest.getNode(0,0));
         expected.add(underTest.getNode(0,1));

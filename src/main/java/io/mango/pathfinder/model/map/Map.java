@@ -18,14 +18,19 @@ public abstract class Map {
     protected Set<Node> closedNodes;
     private int width;
     private int height;
+    public static final String FINAL_COST = "FINAL_COST";
+    public static final String HEURISTIC_COST = "HEURISTIC_COST";
 
     public Map() {
 
     }
 
-    public Map(ToIntFunction<Node> compareBy) {
-        PriorityQueue<Node> openNodes = new PriorityQueue<Node>(Comparator.comparingInt(compareBy));
-        this.openNodes = openNodes;
+    public Map(String comparable) {
+        if(comparable == FINAL_COST) {
+            this.openNodes = new PriorityQueue<Node>(Comparator.comparingInt(Node::getFinalCost));
+        } else {
+            this.openNodes = new PriorityQueue<Node>(Comparator.comparingInt(Node::getHeuristicCost).reversed());
+        }
         this.setClosedNodes(new HashSet<Node>());
     }
 

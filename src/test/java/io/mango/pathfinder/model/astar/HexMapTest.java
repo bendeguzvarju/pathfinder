@@ -1,6 +1,7 @@
 package io.mango.pathfinder.model.astar;
 
 import io.mango.pathfinder.model.map.HexMap;
+import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +25,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodesForOddColumn() {
         //GIVEN
-        underTest = new HexMap(5,5,Node::getFinalCost);
+        underTest = new HexMap(5,5, Map.FINAL_COST);
         Node target = new Node(2,3);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -44,7 +45,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodesForOddColumn2() {
         //GIVEN
-        underTest = new HexMap(5,5,Node::getFinalCost);
+        underTest = new HexMap(5,5,Map.FINAL_COST);
         Node target = new Node(2,2);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -64,7 +65,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursDoesNotCheckOutOfBoundNodes() {
         //GIVEN
-        underTest = new HexMap(5,5,Node::getFinalCost);
+        underTest = new HexMap(5,5,Map.FINAL_COST);
         Node target = new Node(0,0);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -81,7 +82,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursDoesNotCheckOutOfBoundNodes2() {
         //GIVEN
-        underTest = new HexMap(5,5,Node::getFinalCost);
+        underTest = new HexMap(5,5,Map.FINAL_COST);
         Node target = new Node(0,4);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
@@ -97,7 +98,7 @@ public class HexMapTest {
     @Test
     public void findNeighboursReturnsCorrectNodes() {
         //GIVEN
-        underTest = new HexMap(5,5,Node::getFinalCost);
+        underTest = new HexMap(5,5,Map.FINAL_COST);
         Node target = new Node(1,1);
         underTest.setNode(target);
         Set<Node> expected = new HashSet<>();
