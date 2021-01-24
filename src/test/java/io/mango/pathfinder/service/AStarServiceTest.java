@@ -32,6 +32,7 @@ public class AStarServiceTest {
         Node startNode = new Node(0,0);
         Node endNode = new Node(4,3);
         Scenario scenario = new Scenario(map, robot, startNode, endNode);
+        int[][] blockList= new int[][]{{1,3},{1,2}};
         map.addBlock(1,2);
         map.addBlock(1,0);
         map.addBlock(1,1);
