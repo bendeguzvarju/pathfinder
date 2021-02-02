@@ -3,7 +3,11 @@ package io.mango.pathfinder.model.Image;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 
 @Getter
 @Setter
@@ -15,6 +19,16 @@ public class MapImage {
     private BufferedImage image;
 
     public MapImage(BufferedImage bufferedImage) {
+        this.image = bufferedImage;
+    }
+
+    public MapImage(File file) {
+        BufferedImage bufferedImage;
+        try {
+            bufferedImage = ImageIO.read(file);
+        } catch (IOException e) {
+            throw new RuntimeException("Can't create buffered image from file");
+        }
         this.image = bufferedImage;
     }
 
@@ -39,6 +53,18 @@ public class MapImage {
     public int getBlue(Coordinate coordinate) {
         int rgbValue = getRgbValue(coordinate);
         return rgbValue & LAST_BYTE;
+    }
+
+    public boolean isRed(Coordinate coordinate) {
+        return getRed(coordinate) == 255 && getBlue(coordinate) == 0 && getGreen(coordinate) == 0;
+    }
+
+    public boolean isGreen(Coordinate coordinate) {
+        return getRed(coordinate) == 0 && getBlue(coordinate) == 0 && getGreen(coordinate) == 255;
+    }
+
+    public boolean isBlue(Coordinate coordinate) {
+        return getRed(coordinate) == 0 && getBlue(coordinate) == 255 && getGreen(coordinate) == 0;
     }
 
     private int getRgbValue(Coordinate coordinate) {

@@ -1,5 +1,9 @@
 package io.mango.pathfinder.service;
 
+import io.mango.pathfinder.model.Image.Coordinate;
+import io.mango.pathfinder.model.map.Map;
+import io.mango.pathfinder.model.map.Node;
+import io.mango.pathfinder.model.map.SquareMap;
 import io.mango.pathfinder.model.scenario.Scenario;
 import io.mango.pathfinder.web.request.ImageProcessingRequest;
 import org.springframework.stereotype.Service;
@@ -15,15 +19,31 @@ public class ImageProcessorService {
 
     public Scenario process(ImageProcessingRequest request) {
         Scenario scenario = new Scenario();
+        scenario.setRobot(request.getRobot());
+        Map map = new SquareMap(request.getWidth(), request.getHeight(), Map.FINAL_COST);
+        scenario.setMap(map);
+
         int nodeHeight = request.getImage().getHeight() / request.getHeight();
         int nodeWidth = request.getImage().getWidth() / request.getWidth();
 
-
+        for(int y = 0; y < request.getImage().getHeight(); y++) {
+            for(int x = 0; x < request.getImage().getWidth(); x++) {
+                Node node = new Node(x,y);
+                Coordinate coordinate = new Coordinate(y,x);
+                if (request.getImage().isRed(coordinate)) {
+                    scenario.setStartNode(node);
+                } else if (request.getImage().isGreen(coordinate)) {
+                    scenario.addBlock(node);
+                } else if(request.getImage().isBlue(coordinate)){
+                    scenario.setEndNode(node);
+                }
+            }
+        }
         return scenario;
 
 
     }
-
+/*
     private void convertImageToASCIIArt() {
         int sampleBlockHeight = image.getHeight() / Y_AXIS_TRAVERSING_QUOTIENT;
         int sampleBlockWidth = image.getWidth() / X_AXIS_TRAVERSING_QUOTIENT;
@@ -63,5 +83,5 @@ public class ImageProcessorService {
         }
         return sampleSquareGrayScaleValue;
     }
-
+*/
 }

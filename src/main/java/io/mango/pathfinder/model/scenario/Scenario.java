@@ -41,6 +41,10 @@ public class Scenario {
         map.setNode(node);
     }
 
+    public void addBlock(Node node) {
+        map.addBlock(node.getX(), node.getY());
+    }
+
     public Node getNode(int x, int y) {
         return map.getNode(x,y);
     }
