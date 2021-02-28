@@ -43,6 +43,21 @@ public class ImageProcessorService {
 
 
     }
+
+    public Scenario processImage(ImageProcessingRequest request) {
+        Scenario scenario = new Scenario();
+
+        int sampleBlockHeight = request.getImage().getHeight() / request.getHeight();
+        int sampleBlockWidth = request.getImage().getWidth() / request.getWidth();
+
+        for(int y = 0; y < sampleBlockHeight - sampleBlockHeight; y += sampleBlockHeight) {
+            for(int x = 0; x < sampleBlockWidth - sampleBlockWidth; x += sampleBlockWidth) {
+
+            }
+        }
+
+        return scenario;
+    }
 /*
     private void convertImageToASCIIArt() {
         int sampleBlockHeight = image.getHeight() / Y_AXIS_TRAVERSING_QUOTIENT;

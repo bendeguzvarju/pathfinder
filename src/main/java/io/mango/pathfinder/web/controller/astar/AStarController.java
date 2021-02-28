@@ -3,7 +3,9 @@ package io.mango.pathfinder.web.controller.astar;
 import io.mango.pathfinder.model.map.HexMap;
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.service.AStarService;
+import io.mango.pathfinder.web.request.MapRequest;
 import io.mango.pathfinder.web.request.PathRequest;
+import io.mango.pathfinder.web.response.MapResponse;
 import io.mango.pathfinder.web.transformer.PathRequestToHexScenarioTransformer;
 import io.mango.pathfinder.web.transformer.PathRequestToSquareScenarioTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,10 @@ public class AStarController {
     @GetMapping("/square-map")
     public Set<Node> findSquarePath(@RequestBody @Valid PathRequest request) {
         return aStarService.findCheapestPath(pathRequestToSquareScenarioTransformer.transform(request));
+    }
+
+    public MapResponse findSquarePath(@RequestBody @Valid MapRequest request) {
+        return null;
     }
 
     @GetMapping("/hex-map")

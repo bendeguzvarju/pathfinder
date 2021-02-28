@@ -5,8 +5,6 @@ import io.mango.pathfinder.model.astar.Robot;
 import lombok.Getter;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
 public class ImageProcessingRequest {
