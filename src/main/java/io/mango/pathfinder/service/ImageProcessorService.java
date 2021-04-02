@@ -6,6 +6,7 @@ import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.map.SquareMap;
 import io.mango.pathfinder.model.scenario.Scenario;
 import io.mango.pathfinder.web.request.ImageProcessingRequest;
+import io.mango.pathfinder.web.request.ImageProcessingRequest2;
 import org.springframework.stereotype.Service;
 
 
@@ -17,7 +18,7 @@ public class ImageProcessorService {
     private static int minGrayScaleValue = 0;
     private static int maxGrayScaleValue = BYTE_RANGE_OF_EIGHT_BITS * NUMBER_OF_RGB_COLORS;
 
-    public Scenario process(ImageProcessingRequest request) {
+    public Scenario process(ImageProcessingRequest2 request) {
         Scenario scenario = new Scenario();
         scenario.setRobot(request.getRobot());
         Map map = new SquareMap(request.getWidth(), request.getHeight(), Map.FINAL_COST);
@@ -44,7 +45,7 @@ public class ImageProcessorService {
 
     }
 
-    public Scenario processImage(ImageProcessingRequest request) {
+    public Scenario processImage(ImageProcessingRequest2 request) {
         Scenario scenario = new Scenario();
 
         int sampleBlockHeight = request.getImage().getHeight() / request.getHeight();

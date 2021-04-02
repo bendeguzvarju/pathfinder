@@ -1,8 +1,9 @@
 package io.mango.pathfinder.web.controller;
 
-import io.mango.pathfinder.model.User;
 import io.mango.pathfinder.service.UserService;
 import io.mango.pathfinder.web.request.RegisterUserRequest;
+import io.mango.pathfinder.web.response.CountUsersByNameResponse;
+import io.mango.pathfinder.web.response.GetAllUsersResponse;
 import io.mango.pathfinder.web.transformer.RegisterUserRequestToUserTransformer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -31,13 +30,17 @@ public class UserController {
     private RegisterUserRequestToUserTransformer registerUserRequestToUserTransformer;
 
     @GetMapping(GET_ALL_USERS)
-    public List<User> getAllUsers() {
-        return userService.findAllUsers();
+    public GetAllUsersResponse getAllUsers() {
+        GetAllUsersResponse response = new GetAllUsersResponse();
+        response.setUsers(userService.findAllUsers());
+        return response;
     }
 
     @GetMapping(COUNT_USERS_BY_NAME_NAME)
-    public long countUsersByName(@PathVariable String name) {
-        return userService.countByNameIs(name);
+    public CountUsersByNameResponse countUsersByName(@PathVariable String name) {
+        CountUsersByNameResponse response = new CountUsersByNameResponse();
+        response.setNumberOfUsers(userService.countByNameIs(name));
+        return response;
     }
 
     @GetMapping(DELETE_USER)
