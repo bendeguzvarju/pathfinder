@@ -5,7 +5,6 @@ import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.map.SquareMap;
 import io.mango.pathfinder.model.scenario.Scenario;
-import io.mango.pathfinder.web.request.ImageProcessingRequest;
 import io.mango.pathfinder.web.request.ImageProcessingRequest2;
 import org.springframework.stereotype.Service;
 
