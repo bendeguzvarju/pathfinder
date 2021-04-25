@@ -3,7 +3,7 @@ package io.mango.pathfinder.web.controller;
 import io.mango.pathfinder.model.astar.Robot;
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.service.DijkstraService;
-import io.mango.pathfinder.web.request.ImageProcessingRequest;
+import io.mango.pathfinder.web.request.ImageProcessingRequestView;
 import io.mango.pathfinder.web.request.PathRequest;
 import io.mango.pathfinder.web.transformer.PathRequestToHexScenarioTransformer;
 import io.mango.pathfinder.web.transformer.PathRequestToSquareScenarioTransformer;
@@ -42,8 +42,8 @@ public class DijkstraController {
     }
 
     @GetMapping(FIND_SQUARE_PATH_FROM_IMAGE)
-    public ImageProcessingRequest findSquarePathOnImage(@RequestBody @Valid ImageProcessingRequest request) {
-        ImageProcessingRequest response = new ImageProcessingRequest();
+    public ImageProcessingRequestView findSquarePathOnImage(@RequestBody @Valid ImageProcessingRequestView request) {
+        ImageProcessingRequestView response = new ImageProcessingRequestView();
         response.setHeight(2);
         response.setWidth(3);
         response.setImage("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAAEFJREFUKFN9jQEKACAIA/f/T1tpm2bRETE9hgDsw5Lwv6JN1zPH41hWVQS9t4fskNt5INJynolWlUNnj0cfjcRsAFze9QtX6DSTAAAAAElFTkSuQmCC");
@@ -52,8 +52,8 @@ public class DijkstraController {
     }
 
     @GetMapping("/square/image2")
-    public ImageProcessingRequest findSquarePathOnImage2() {
-        ImageProcessingRequest response = new ImageProcessingRequest();
+    public ImageProcessingRequestView findSquarePathOnImage2() {
+        ImageProcessingRequestView response = new ImageProcessingRequestView();
         response.setHeight(2);
         response.setWidth(3);
         response.setImage("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAAEFJREFUKFN9jQEKACAIA/f/T1tpm2bRETE9hgDsw5Lwv6JN1zPH41hWVQS9t4fskNt5INJynolWlUNnj0cfjcRsAFze9QtX6DSTAAAAAElFTkSuQmCC");
@@ -62,7 +62,7 @@ public class DijkstraController {
     }
 
     @GetMapping(FIND_HEX_PATH_FROM_IMAGE)
-    public Set<Node> findHexPathOnImage(@RequestBody @Valid ImageProcessingRequest request) {
+    public Set<Node> findHexPathOnImage(@RequestBody @Valid ImageProcessingRequestView request) {
         return null;
     }
 }

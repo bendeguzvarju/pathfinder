@@ -25,7 +25,7 @@ public abstract class Map {
     }
 
     public Map(String comparable) {
-        if(comparable == FINAL_COST) {
+        if(comparable.equals(FINAL_COST)) {
             this.openNodes = new PriorityQueue<Node>(Comparator.comparingInt(Node::getFinalCost));
         } else {
             this.openNodes = new PriorityQueue<Node>(Comparator.comparingInt(Node::getHeuristicCost).reversed());

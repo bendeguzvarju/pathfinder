@@ -41,8 +41,8 @@ public class DijkstraService implements PathFinder{
                     updateCost(currentNode, neighbour, scenario);
                 }
             }
-            printMapStatus(scenario);
-            System.out.println();
+            //printMapStatus(scenario);
+            //System.out.println();
         }
 
         return solution;

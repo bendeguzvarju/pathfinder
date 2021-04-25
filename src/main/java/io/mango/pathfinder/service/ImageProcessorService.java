@@ -1,11 +1,12 @@
 package io.mango.pathfinder.service;
 
 import io.mango.pathfinder.model.Image.Coordinate;
+import io.mango.pathfinder.model.astar.Robot;
 import io.mango.pathfinder.model.map.Map;
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.map.SquareMap;
 import io.mango.pathfinder.model.scenario.Scenario;
-import io.mango.pathfinder.web.request.ImageProcessingRequest2;
+import io.mango.pathfinder.web.request.ImageProcessingRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -17,12 +18,12 @@ public class ImageProcessorService {
     private static int minGrayScaleValue = 0;
     private static int maxGrayScaleValue = BYTE_RANGE_OF_EIGHT_BITS * NUMBER_OF_RGB_COLORS;
 
-    public Scenario process(ImageProcessingRequest2 request) {
-        Scenario scenario = new Scenario();
-        scenario.setRobot(request.getRobot());
-        Map map = new SquareMap(request.getWidth(), request.getHeight(), Map.FINAL_COST);
-        scenario.setMap(map);
+    public Scenario process(ImageProcessingRequest request) {
 
+        Map map = new SquareMap(request.getWidth(), request.getHeight(), Map.FINAL_COST);
+        Robot robot = new Robot(1,1);
+        Node startNode = new Node();
+        Node endNode = new Node();
         int nodeHeight = request.getImage().getHeight() / request.getHeight();
         int nodeWidth = request.getImage().getWidth() / request.getWidth();
 
@@ -31,20 +32,31 @@ public class ImageProcessorService {
                 Node node = new Node(x,y);
                 Coordinate coordinate = new Coordinate(y,x);
                 if (request.getImage().isRed(coordinate)) {
-                    scenario.setStartNode(node);
-                } else if (request.getImage().isGreen(coordinate)) {
-                    scenario.addBlock(node);
+                    startNode = node;
                 } else if(request.getImage().isBlue(coordinate)){
-                    scenario.setEndNode(node);
+                    endNode = node;
                 }
             }
         }
+
+        Scenario scenario = new Scenario(map, robot, startNode, endNode);
+
+        for(int y = 0; y < request.getImage().getHeight(); y++) {
+            for(int x = 0; x < request.getImage().getWidth(); x++) {
+                Node node = new Node(x,y);
+                Coordinate coordinate = new Coordinate(y,x);
+                if (request.getImage().isGreen(coordinate)) {
+                    scenario.addBlock(node);
+                }
+            }
+        }
+
         return scenario;
 
 
     }
 
-    public Scenario processImage(ImageProcessingRequest2 request) {
+    public Scenario processImage(ImageProcessingRequest request) {
         Scenario scenario = new Scenario();
 
         int sampleBlockHeight = request.getImage().getHeight() / request.getHeight();

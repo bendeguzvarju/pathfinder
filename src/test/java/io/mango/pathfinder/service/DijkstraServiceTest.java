@@ -38,6 +38,11 @@ public class DijkstraServiceTest {
         Set<Node> actual = underTest.findCheapestPath(scenario);
         scenario.displayHeuristicMap();
         Set<Node> expected = new HashSet<>();
+        expected.add(map.getNode(0,0));
+        expected.add(map.getNode(1,1));
+        expected.add(map.getNode(2,2));
+        expected.add(map.getNode(3,3));
+        expected.add(map.getNode(4,3));
         Assert.assertEquals(actual, expected);
 
     }

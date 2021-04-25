@@ -2,7 +2,7 @@ package io.mango.pathfinder.web.controller;
 
 import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.service.AStarService;
-import io.mango.pathfinder.web.request.ImageProcessingRequest;
+import io.mango.pathfinder.web.request.ImageProcessingRequestView;
 import io.mango.pathfinder.web.request.PathRequest;
 import io.mango.pathfinder.web.transformer.PathRequestToHexScenarioTransformer;
 import io.mango.pathfinder.web.transformer.PathRequestToSquareScenarioTransformer;
@@ -39,12 +39,12 @@ public class AStarController {
     }
 
     @GetMapping("/square/image")
-    public Set<Node> findSquarePathOnImage(@RequestBody @Valid ImageProcessingRequest request) {
+    public Set<Node> findSquarePathOnImage(@RequestBody @Valid ImageProcessingRequestView request) {
         return null;
     }
 
     @GetMapping("/hex/image")
-    public Set<Node> findHexPathOnImage(@RequestBody @Valid ImageProcessingRequest request) {
+    public Set<Node> findHexPathOnImage(@RequestBody @Valid ImageProcessingRequestView request) {
         return null;
     }
 

@@ -6,10 +6,12 @@ import io.mango.pathfinder.model.map.Node;
 import io.mango.pathfinder.model.astar.Robot;
 import io.mango.pathfinder.model.scenario.Scenario;
 import io.mango.pathfinder.model.map.SquareMap;
+import io.mango.pathfinder.web.response.TestDataResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
@@ -18,6 +20,8 @@ import java.util.Set;
 @RunWith(SpringRunner.class)
 public class AStarServiceTest {
     private AStarService underTest;
+
+    private TestDataGeneratorService testDataGeneratorService;
 
     @Before
     public void setUp(){
@@ -83,6 +87,22 @@ public class AStarServiceTest {
         System.out.println("Heuristic map: ");
         scenario.displayHeuristicMap();
         Assert.assertEquals(expected, actual.size());
+    }
+
+    @Test
+    public void produceTestResults() {
+        testDataGeneratorService = new TestDataGeneratorService();
+        //TestDataResponse response = testDataGeneratorService.generateRandomSquareDijkstraTestData();
+        //System.out.println(response.getScenarios().size());
+    }
+
+    @Test
+    public void testtest() {
+        int j = 0;
+        for (int i = 56; i < 157; i++) {
+            System.out.println(i / 14 + 1);
+            System.out.println(j++);
+        }
     }
 
 

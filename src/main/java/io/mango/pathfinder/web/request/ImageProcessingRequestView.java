@@ -1,15 +1,14 @@
 package io.mango.pathfinder.web.request;
 
-import io.mango.pathfinder.model.Image.MapImage;
 import io.mango.pathfinder.model.astar.Robot;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ImageProcessingRequest2 {
+public class ImageProcessingRequestView {
     private int height;
     private int width;
-    private MapImage image;
+    private String image;
     private Robot robot;
 }
