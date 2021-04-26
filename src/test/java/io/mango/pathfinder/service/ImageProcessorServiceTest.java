@@ -76,7 +76,7 @@ public class ImageProcessorServiceTest {
         request.setWidth(10);
         request.setHeight(10);
         //WHEN
-        Scenario actual = underTest.process(request);
+        Scenario actual = underTest.processAsAStarAndSquare(request);
         //THEN
         AStarService aStarService = new AStarService();
         Set<Node> solution = aStarService.findCheapestPath(actual);
@@ -100,16 +100,16 @@ public class ImageProcessorServiceTest {
     @Test
     public void testProcessCreatesCorrectScenarios() {
         for (String path : PATHS) {
-            produceAstarData(path);
-            produceDijkstraData(path);
+            produceAstarSquareData(path);
+            produceAStarHexData(path);
+            produceDijkstraSquareData(path);
+            produceDijkstraHexData(path);
             System.out.println("==========");
-            System.out.println();
-            System.out.println();
         }
         Assert.assertEquals(1,2);
     }
 
-    private void produceAstarData(String path) {
+    private void produceAstarSquareData(String path) {
         ImageProcessingRequest request = new ImageProcessingRequest();
         File file = new File(path);
         String mapName = path.replace("src/main/resources/test-maps/", "").replace(".png", "");
@@ -119,22 +119,24 @@ public class ImageProcessorServiceTest {
         request.setWidth(mapImage.getWidth());
         request.setHeight(mapImage.getHeight());
         //WHEN
-        Scenario actual = underTest.process(request);
+        Scenario actual = underTest.processAsAStarAndSquare(request);
         //THEN
         Set<Node> aStarSolution = aStarService.findCheapestPath(actual);
         //actual.displayHeuristicMap();
+
         System.out.println("MapName:" + mapName);
-        System.out.println("AStar solution size: " + aStarSolution.size());
-        System.out.println("Closed nodes: " + actual.getClosedNodes().size());
+        System.out.println("\t" + "AStar, Square");
+        System.out.println("\t" + "\t" + "Solution size: " + aStarSolution.size());
+        //System.out.println("\t" + "\t" + "Closed nodes: " + actual.getClosedNodes().size());
         int visitedNodes = actual.getClosedNodes().size() + actual.getOpenNodes().size();
-        System.out.println("Visited nodes: " + visitedNodes);
-        System.out.println("Final Costs");
-        actual.displayFinalCosts();
-        System.out.println("Heuristic Costs");
-        actual.displayHeuristicMap();
+        System.out.println("\t" + "\t" + "Visited nodes: " + visitedNodes);
+        //System.out.println("Final Costs");
+        //actual.displayFinalCosts();
+        //System.out.println("Heuristic Costs");
+        //actual.displayHeuristicMap();
     }
 
-    private void produceDijkstraData(String path) {
+    private void produceDijkstraSquareData(String path) {
         ImageProcessingRequest request = new ImageProcessingRequest();
         File file = new File(path);
         String mapName = path.replace("src/main/resources/test-maps/", "").replace(".png", "");
@@ -144,20 +146,76 @@ public class ImageProcessorServiceTest {
         request.setWidth(mapImage.getWidth());
         request.setHeight(mapImage.getHeight());
         //WHEN
-        Scenario actual = underTest.process(request);
+        Scenario actual = underTest.processAsDijkstraAndSquare(request);
         //THEN
         Set<Node> dijkstraSolution = dijkstraService.findCheapestPath(actual);
 
         //actual.displayHeuristicMap();
-        System.out.println("MapName:" + mapName);
-        System.out.println("Dijkstra solution size: " + dijkstraSolution.size());
-        System.out.println("Closed nodes: " + actual.getClosedNodes().size());
+        //System.out.println("MapName:" + mapName);
+
+        System.out.println("\t" + "Dijkstra, Square");
+        System.out.println("\t" + "\t" + "Solution size: " + dijkstraSolution.size());
+        //System.out.println("\t" + "\t" +  + actual.getClosedNodes().size());
         int visitedNodes = actual.getClosedNodes().size() + actual.getOpenNodes().size();
-        System.out.println("Visited nodes: " + visitedNodes);
-        System.out.println("Final Costs");
-        actual.displayFinalCosts();
-        System.out.println("Heuristic Costs");
-        actual.displayHeuristicMap();
+        System.out.println("\t" + "\t" + "Visited nodes: " + visitedNodes);
+        //System.out.println("Final Costs");
+        //actual.displayFinalCosts();
+        //System.out.println("Heuristic Costs");
+        //actual.displayHeuristicMap();
+    }
+    private void produceAStarHexData(String path) {
+        ImageProcessingRequest request = new ImageProcessingRequest();
+        File file = new File(path);
+        String mapName = path.replace("src/main/resources/test-maps/", "").replace(".png", "");
+        MapImage mapImage = new MapImage(file);
+        request.setImage(mapImage);
+        request.setRobot(new Robot(1,1));
+        request.setWidth(mapImage.getWidth());
+        request.setHeight(mapImage.getHeight());
+        //WHEN
+        Scenario actual = underTest.processAsAStarAndHex(request);
+        //THEN
+        Set<Node> dijkstraSolution = dijkstraService.findCheapestPath(actual);
+
+        //actual.displayHeuristicMap();
+        //System.out.println("MapName:" + mapName);
+
+        System.out.println("\t" + "AStar, Hex");
+        System.out.println("\t" + "\t" + "Solution size: " + dijkstraSolution.size());
+        //System.out.println("\t" + "\t" + "Closed nodes: " + actual.getClosedNodes().size());
+        int visitedNodes = actual.getClosedNodes().size() + actual.getOpenNodes().size();
+        System.out.println("\t" + "\t" + "Visited nodes: " + visitedNodes);
+        //System.out.println("Final Costs");
+        //actual.displayFinalCosts();
+        //System.out.println("Heuristic Costs");
+        //actual.displayHeuristicMap();
+    }
+    private void produceDijkstraHexData(String path) {
+        ImageProcessingRequest request = new ImageProcessingRequest();
+        File file = new File(path);
+        String mapName = path.replace("src/main/resources/test-maps/", "").replace(".png", "");
+        MapImage mapImage = new MapImage(file);
+        request.setImage(mapImage);
+        request.setRobot(new Robot(1,1));
+        request.setWidth(mapImage.getWidth());
+        request.setHeight(mapImage.getHeight());
+        //WHEN
+        Scenario actual = underTest.processAsDijkstraAndHex(request);
+        //THEN
+        Set<Node> dijkstraSolution = dijkstraService.findCheapestPath(actual);
+
+        //actual.displayHeuristicMap();
+        //System.out.println("MapName:" + mapName);
+
+        System.out.println("\t" + "Dijkstra, Hex");
+        System.out.println("\t" + "\t" + "Solution size: " + dijkstraSolution.size());
+        //System.out.println("\t" + "\t" + "Closed nodes: " + actual.getClosedNodes().size());
+        int visitedNodes = actual.getClosedNodes().size() + actual.getOpenNodes().size();
+        System.out.println("\t" + "\t" + "Visited nodes: " + visitedNodes);
+        //System.out.println("Final Costs");
+        //actual.displayFinalCosts();
+        //System.out.println("Heuristic Costs");
+        //actual.displayHeuristicMap();
     }
 
 }
