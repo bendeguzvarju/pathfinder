@@ -19,32 +19,48 @@ public class AStarService implements PathFinder{
         Node currentNode;
         while(true) {
             currentNode = scenario.getOpenNodes().poll();
-            if(currentNode == null || currentNode.isBlock()) {
+            if(isNotEligible(currentNode)) {
                 break;
             }
-
             scenario.getClosedNodes().add(currentNode);
-
-            if(currentNode.equals(scenario.getEndNode())) {
-
-                while(currentNode != null && !currentNode.isBlock() ) {
-                    solution.add(currentNode);
-                    currentNode.setSolution(true);
-                    currentNode = currentNode.getParent();
+            if(isEndNode(scenario, currentNode)) {
+                while(isEligible(currentNode)) {
+                    currentNode = addNodeToSolution(solution, currentNode);
                 }
                 return solution ;
             }
-
             Set<Node> neighbours = scenario.findNeighbours(currentNode);
-            for(Node neighbour : neighbours) {
-                updateCost(currentNode, neighbour, scenario);
-            }
+            calculateMoveCosts(scenario, currentNode, neighbours);
         }
-
         return solution;
     }
 
-    private void updateCost(Node current, Node target, Scenario scenario) {
+    private boolean isNotEligible(Node currentNode) {
+        return currentNode == null || currentNode.isBlock();
+    }
+
+    private boolean isEndNode(Scenario scenario, Node currentNode) {
+        return currentNode.equals(scenario.getEndNode());
+    }
+
+    private boolean isEligible(Node currentNode) {
+        return currentNode != null && !currentNode.isBlock();
+    }
+
+    private Node addNodeToSolution(Set<Node> solution, Node currentNode) {
+        solution.add(currentNode);
+        currentNode.setSolution(true);
+        currentNode = currentNode.getParent();
+        return currentNode;
+    }
+
+    private void calculateMoveCosts(Scenario scenario, Node currentNode, Set<Node> neighbours) {
+        for(Node neighbour : neighbours) {
+            calculateMoveCosts(currentNode, neighbour, scenario);
+        }
+    }
+
+    private void calculateMoveCosts(Node current, Node target, Scenario scenario) {
         Map map = scenario.getMap();
         Robot robot = scenario.getRobot();
         if(target.isBlock() || map.getClosedNodes().contains(target)) {

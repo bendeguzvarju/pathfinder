@@ -22,7 +22,6 @@ public class AStarController {
 
     @Autowired
     private AStarService aStarService;
-
     @Autowired
     private PathRequestToSquareScenarioTransformer pathRequestToSquareScenarioTransformer;
     @Autowired
